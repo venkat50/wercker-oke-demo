@@ -1,7 +1,7 @@
 import json
 import argparse
 
-from bottle import Bottle, run, request
+from bottle import Bottle, run, request, template
 
 app = Bottle()
 
@@ -11,6 +11,10 @@ def get_ip():
     client_ip = request.environ.get('REMOTE_ADDR')
    
     return json.dumps({"client_ip": client_ip})
+
+@app.route('/hello/<name>')
+def index(name):
+    return template('<b>Hello {{name}}</b>!', name=name)
 
 
 if __name__ == "__main__":
